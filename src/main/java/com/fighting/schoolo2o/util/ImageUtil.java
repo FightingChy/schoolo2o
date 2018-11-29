@@ -96,7 +96,7 @@ public class ImageUtil {
 	 * 
 	 * @return
 	 */
-	private static String getRandomFileName() {
+	public static String getRandomFileName() {
 		// 获取随机的5位数
 		int rannum = r.nextInt(89999) + 10000;
 		String nowTimeStr = sdf.format(new Date());
