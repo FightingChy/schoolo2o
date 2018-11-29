@@ -44,6 +44,8 @@ public class AreaController {
 		}
 		logger.error("test error!");
 		long endTime = System.currentTimeMillis();
+		
+		//Testtestejkh
 		logger.debug("costTime:[{}ms]",endTime-startTime);
 		logger.info("===end===");
 		return modelMap;
