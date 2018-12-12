@@ -3,8 +3,11 @@ package com.fighting.schoolo2o.web.shopadmin;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +16,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fighting.schoolo2o.dto.ShopExecution;
+import com.fighting.schoolo2o.entity.Area;
 import com.fighting.schoolo2o.entity.PersonInfo;
 import com.fighting.schoolo2o.entity.Shop;
+import com.fighting.schoolo2o.entity.ShopCategory;
 import com.fighting.schoolo2o.enums.ShopStateEnum;
 import com.fighting.schoolo2o.exceptions.ShopOperationException;
+import com.fighting.schoolo2o.service.AreaService;
+import com.fighting.schoolo2o.service.ShopCategoryService;
 import com.fighting.schoolo2o.service.ShopService;
+import com.fighting.schoolo2o.util.CodeUtil;
 import com.fighting.schoolo2o.util.HttpServletRequestUtil;
 
 @Controller
@@ -27,15 +36,28 @@ import com.fighting.schoolo2o.util.HttpServletRequestUtil;
 public class ShopManagementController {
 	@Autowired
 	private ShopService shopService;
+	
+	@Autowired
+	private ShopCategoryService  shopCategoryService;
+	
+	@Autowired
+	private AreaService areaService;
 
-	@RequestMapping(value = "/registershop", method = RequestMethod.POST)
+	@RequestMapping(value ="/registershop", method=RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> registerShop(HttpServletRequest request) {
 
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-
-		// 1、接受并转化相应的参数，包括店铺信息以及图片信息
+		String test = request.getParameter("test");
 		String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		if(!CodeUtil.checkVerifyCode(request)) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", test);
+			return modelMap;
+		}
+			
+		// 1、接受并转化相应的参数，包括店铺信息以及图片信息
+		//String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
 		Shop shop = null;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -81,6 +103,23 @@ public class ShopManagementController {
 			modelMap.put("errMsg", "请输入店铺信息");
 			return modelMap;
 		}
+	}
+	
+	@RequestMapping(value ="/getshopinitinfo", method=RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopInitInfo(){
+		Map<String, Object> resultMap = new HashMap<String, Object>();		
+		try{
+			List<ShopCategory> shopCategoryList = shopCategoryService.queryShopCategory(null);
+			List<Area> areaList = areaService.getAreaList();
+			resultMap.put("success", true);
+			resultMap.put("shopCategoryList", shopCategoryList);
+			resultMap.put("areaList", areaList);
+		}catch(Exception e){
+			resultMap.put("success", false);
+			resultMap.put("errMsg", e.getMessage());			
+		}
+		return resultMap;		
 	}
 
 //	private static void inputStreamToFile(InputStream ins, File file) {
