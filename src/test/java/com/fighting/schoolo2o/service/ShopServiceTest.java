@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +19,7 @@ import com.fighting.schoolo2o.entity.PersonInfo;
 import com.fighting.schoolo2o.entity.Shop;
 import com.fighting.schoolo2o.entity.ShopCategory;
 import com.fighting.schoolo2o.enums.ShopStateEnum;
+import com.fighting.schoolo2o.exceptions.ShopOperationException;
 
 public class ShopServiceTest extends BaseTest {
 
@@ -25,6 +27,34 @@ public class ShopServiceTest extends BaseTest {
 	private ShopService shopService;
 	
 	@Test
+	public void testGetShopList() {
+		Shop shopCondition = new Shop();
+		ShopCategory shopCategory = new ShopCategory();
+		shopCategory.setShopCategoryId(1L);
+		
+		Area area = new Area();
+		area.setAreaId(1);
+		shopCondition.setArea(area);
+		ShopExecution se =  shopService.getShopList(shopCondition, 2, 2);
+		for(Shop shop : se.getShopList()) {
+			System.out.println(shop.getShopId());
+		}
+		
+	}
+	
+	@Test
+	@Ignore
+	public void testModifyShop() throws ShopOperationException, FileNotFoundException {
+		Shop oldShop = shopService.getByShopId(1L);
+		oldShop.setShopDesc("香八里奶茶店的描述");
+		File shopImg = new File("D:/timg.jpg");
+		InputStream is = new FileInputStream(shopImg);
+		ShopExecution se = shopService.modifyShop(oldShop, is, shopImg.getName());
+		assertEquals(ShopStateEnum.SUCCESS.getState(), se.getState());
+	}
+	
+	@Test
+	@Ignore
 	public void testAddShop() throws FileNotFoundException {
 		Shop shop = new Shop();
 		shop.setShopName("香九里奶茶店");
