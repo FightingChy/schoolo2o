@@ -30,6 +30,7 @@ import com.fighting.schoolo2o.service.ShopCategoryService;
 import com.fighting.schoolo2o.service.ShopService;
 import com.fighting.schoolo2o.util.CodeUtil;
 import com.fighting.schoolo2o.util.HttpServletRequestUtil;
+import com.fighting.schoolo2o.util.PathUtil;
 
 @Controller
 @RequestMapping("/shopadmin")
@@ -72,6 +73,7 @@ public class ShopManagementController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		PersonInfo user = new PersonInfo();
 		user.setUserId(1L);
+		user.setName("Fighting_Chen");
 		request.getSession().setAttribute("user", user);
 		user = (PersonInfo) request.getSession().getAttribute("user");
 		try {
@@ -116,6 +118,29 @@ public class ShopManagementController {
 		}
 		return modelMap;
 	}
+	
+	@RequestMapping(value = "/getshopdetailbyid", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopDetailById(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		Long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+		if (shopId > -1) {
+			try {
+				Shop shop = shopService.getByShopId(shopId);
+				modelMap.put("shop", shop);
+				modelMap.put("shopImagePath", PathUtil.getImgBasePath() + shop.getShopImg());
+				modelMap.put("success", true);
+			} catch (Exception ex) {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ex.getMessage());
+			}
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty shopId");
+		}
+		return modelMap;
+	}
+
 
 	@RequestMapping(value = "/registershop", method = RequestMethod.POST)
 	@ResponseBody

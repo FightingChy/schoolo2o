@@ -39,9 +39,10 @@ $(function() {
 	function goShop(status, shopId) {
 		if (status == 1) {
 			return '<a href="/schoolo2o/shopadmin/shopmanagement?shopId=' + shopId
-					+ '">进入</a>';
+					+ '">管理</a>';
 		} else {
-			return '';
+			return '<a href="/schoolo2o/shopadmin/shopdetail?shopId=' + shopId
+			+ '">详情</a>';
 		}
 	}
 
