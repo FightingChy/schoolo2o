@@ -12,30 +12,31 @@
 	href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 <link rel="stylesheet"
 	href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-<link rel="stylesheet" href="../resources/css/shop/shopmanagement.css">
+<link rel="stylesheet" href="../resources/css/shop/productmanagement.css">
 </head>
 <body>
 	<header class="bar bar-nav">
-		<h1 class="title">店铺管理</h1>
+		<h1 class="title">商品管理</h1>
 	</header>
 	<div class="content">
 		<div class="content-block">
-			<div class="row">
-				<div class="col-50 mb">
-					<a id="shopInfo" href="/shoolo2o/shop/shopedit"
-						class="button button-big button-fill button-success">商铺管理</a>
+			<div class="row row-product">
+				<div class="col-25">商品名称</div>
+				<div class="col-25">商品类别</div>
+				<div class="col-25">商品简介</div>
+				<div class="col-25">操作</div>
+			</div>
+			<div class="product-wrap"></div>
+		</div>
+		<div class="content-block">
+			<div class="row">				
+				<div class="col-50">
+					<a id="submit"
+						class="button button-big button-fill">提交</a>
 				</div>
-				<div class="col-50 mb">
-					<a href="/schoolo2o/shopadmin/productmanage"
-						class="button button-big button-fill button-success">商品管理</a>
-				</div>
-				<div class="col-50 mb">
-					<a href="/schoolo2o/shopadmin/productcategorymanagement"
-						class="button button-big button-fill button-success">类别管理</a>
-				</div>
-				<div class="col-100 mb">
-					<a href="/schoolo2o/shopadmin/shoplist"
-						class="button button-big button-fill button-danger">返回</a>
+				<div class="col-50">
+					<a href="/schoolo2o/shopadmin/productoperation" id="add"
+						class="button button-big button-fill button-success">新增</a>
 				</div>
 			</div>
 		</div>
@@ -48,6 +49,7 @@
 		src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 	<script type='text/javascript' src='../resources/js/common/common.js'
 		charset='utf-8'></script>
-	<script type='text/javascript' src='../resources/js/shop/shopmanagement.js'
+		<script type='text/javascript' src='../resources/js/shop/productmanagement.js'
 		charset='utf-8'></script>
 </body>
+</html>

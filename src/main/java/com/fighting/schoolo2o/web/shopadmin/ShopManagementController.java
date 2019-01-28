@@ -18,6 +18,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fighting.schoolo2o.dto.ImageHolder;
 import com.fighting.schoolo2o.dto.ShopExecution;
 import com.fighting.schoolo2o.entity.Area;
 import com.fighting.schoolo2o.entity.PersonInfo;
@@ -180,7 +181,8 @@ public class ShopManagementController {
 			shop.setOwner(owner);
 			ShopExecution se;
 			try {
-				se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+				
+				se = shopService.addShop(shop, new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream()));
 				if (se.getState() == ShopStateEnum.CHECK.getState()) {
 					modelMap.put("success", true);
 					@SuppressWarnings("unchecked")
@@ -243,9 +245,9 @@ public class ShopManagementController {
 			ShopExecution se;
 			try {
 				if (shopImg == null) {
-					se = shopService.modifyShop(shop, null, null);
+					se = shopService.modifyShop(shop, null);
 				} else {
-					se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+					se = shopService.modifyShop(shop, new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream()));
 				}
 				if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
 					resultMap.put("success", true);

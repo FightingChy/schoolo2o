@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fighting.schoolo2o.BaseTest;
+import com.fighting.schoolo2o.dto.ImageHolder;
 import com.fighting.schoolo2o.dto.ShopExecution;
 import com.fighting.schoolo2o.entity.Area;
 import com.fighting.schoolo2o.entity.PersonInfo;
@@ -49,7 +50,7 @@ public class ShopServiceTest extends BaseTest {
 		oldShop.setShopDesc("香八里奶茶店的描述");
 		File shopImg = new File("D:/timg.jpg");
 		InputStream is = new FileInputStream(shopImg);
-		ShopExecution se = shopService.modifyShop(oldShop, is, shopImg.getName());
+		ShopExecution se = shopService.modifyShop(oldShop, new ImageHolder(shopImg.getName(), is));
 		assertEquals(ShopStateEnum.SUCCESS.getState(), se.getState());
 	}
 	
@@ -77,7 +78,8 @@ public class ShopServiceTest extends BaseTest {
 		
 		File shopImg = new File("D:/xiaohuangren.jpg");
 		InputStream is = new FileInputStream(shopImg);
-		ShopExecution se = shopService.addShop(shop, is, shopImg.getName());
+		
+		ShopExecution se = shopService.addShop(shop, new ImageHolder(shopImg.getName(),is));
 		assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
 	} 
 }

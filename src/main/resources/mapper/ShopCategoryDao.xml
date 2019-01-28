@@ -6,9 +6,11 @@
 
 	<select id="queryShopCategory"
 		resultType="com.fighting.schoolo2o.entity.ShopCategory">
-		SELECT shop_category_id, shop_category_name,
-		shop_category_desc,shop_category_img,priority,create_time,
-		last_edit_time,parent_id 
+		SELECT
+		shop_category_id, shop_category_name,
+		shop_category_desc,shop_category_img,
+		priority,create_time,
+		last_edit_time,parent_id
 		FROM
 		tb_shop_category
 		<where>
@@ -23,7 +25,7 @@
 				and parent_id = #{shopCategoryCondition.parent.shopCategoryId}
 			</if>
 		</where>
-		ORDER BY 
+		ORDER BY
 		priority DESC
 	</select>
 </mapper>

@@ -69,7 +69,7 @@
 				and s.area_id = #{shopCondition.area.areaId}
 			</if>
 			<if test="shopCondition.shopName != null">
-				and s.shop_name like '%#{shopCondition.shopName}%'
+				and s.shop_name like '%${shopCondition.shopName}$'
 			</if>
 			<if test="shopCondition.enableStatus != null">
 				and s.enable_status = #{shopCondition.enableStatus}

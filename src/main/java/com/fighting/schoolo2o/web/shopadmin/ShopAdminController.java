@@ -1,12 +1,4 @@
 package com.fighting.schoolo2o.web.shopadmin;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +41,24 @@ public class ShopAdminController {
 	public String productCategoryManage(){
 		// 转发至店铺注册/编辑页面
 		return "shop/productcategorymanagement";
+	}
+	
+	@RequestMapping(value = "/productmanage")
+	public String productManage(){
+		// 转发至店铺注册/编辑页面
+		return "shop/productmanagement";
+	}
+	
+	@RequestMapping(value = "/productoperation")
+	public String productOperation(){
+		// 转发至店铺注册/编辑页面
+		return "shop/productoperation";
+	}
+	
+	@RequestMapping(value = "/productdetail")
+	public String productDetail(){
+		// 转发至店铺注册/编辑页面
+		return "shop/productdetail";
 	}
 
 }
