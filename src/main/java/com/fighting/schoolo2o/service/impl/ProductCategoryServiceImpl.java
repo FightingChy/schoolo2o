@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fighting.schoolo2o.dao.ProductCategoryDao;
+import com.fighting.schoolo2o.dao.ProductDao;
 import com.fighting.schoolo2o.dto.ProductCategoryExecution;
 import com.fighting.schoolo2o.entity.ProductCategory;
 import com.fighting.schoolo2o.enums.ProductCategoryStateEnum;
@@ -19,6 +20,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Autowired
 	private ProductCategoryDao productCategoryDao;
 
+	@Autowired
+	private ProductDao productDao;
+
 	@Override
 	public List<ProductCategory> getProductCategoryList(long shopId) {
 		return productCategoryDao.queryProductCategoryList(shopId);
@@ -28,8 +32,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Transactional
 	public ProductCategoryExecution deleteProductCategory(long productCategoryId, long shopId)
 			throws ProductCategoryOperationException {
-		// 删除该productCategory
-		
+		// 将改ProductCategoryId下面对应的商品的ProductCategoryId置为null
+		try {
+		int effectedNum = productDao.updateProductCategoryToNull(productCategoryId);
+		if(effectedNum < 0) {
+			throw new ProductCategoryOperationException("商品类别更新失败");
+		}
+		}catch(Exception e) {
+			throw new ProductCategoryOperationException("deleteProductCategory error:" + e.getMessage());
+		}
 		try {
 			int effectedNum = productCategoryDao.deleteProductCategory(productCategoryId, shopId);
 			if (effectedNum <= 0) {
@@ -57,7 +68,5 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 			throw new ProductCategoryOperationException("batchAddProductCategory error:" + e.getMessage());
 		}
 	}
-	
-	
 
 }
