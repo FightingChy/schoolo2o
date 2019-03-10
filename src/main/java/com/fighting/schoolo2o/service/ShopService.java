@@ -1,7 +1,5 @@
 package com.fighting.schoolo2o.service;
 
-import java.io.InputStream;
-
 import com.fighting.schoolo2o.dto.ImageHolder;
 import com.fighting.schoolo2o.dto.ShopExecution;
 import com.fighting.schoolo2o.entity.Shop;

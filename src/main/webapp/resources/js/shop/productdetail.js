@@ -1,7 +1,6 @@
 $(function(){
 	var productId = getQueryString("productId");
 	var detailUrl = '/schoolo2o/shopadmin/getproductbyid?productId=' + productId;
-	var imgPath = 'D:/projectdev/images/';
 	getProductById();
 	function getProductById(){
 		$.getJSON(detailUrl, function(data){
@@ -12,11 +11,11 @@ $(function(){
 				$('#priority').text(product.priority);
 				$('#normal-price').text(product.normalPrice);
 				$('#promotion-price').text(product.promotionPrice);
-				$('#product-img').attr("src", '/schoolo2o/image/showimg?path=' +encodeURIComponent(data.productImagePath));
+				$('#product-img').attr("src", product.imgAddr);
 				$('#product-desc').text(product.productDesc);
 				var detailHtml = "";
 				product.productImgList.map(function(item,index){
-					detailHtml += '<img src="/schoolo2o/image/showimg?path=' + encodeURIComponent(imgPath + item.imgAddr)  + '"/>'
+					detailHtml += '<img src="' + item.imgAddr + '"/>'
 				});
 				$('#detail-img').html(detailHtml);
 			}			

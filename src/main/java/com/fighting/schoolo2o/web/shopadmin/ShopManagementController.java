@@ -129,7 +129,7 @@ public class ShopManagementController {
 			try {
 				Shop shop = shopService.getByShopId(shopId);
 				modelMap.put("shop", shop);
-				modelMap.put("shopImagePath", PathUtil.getImgBasePath() + shop.getShopImg());
+				modelMap.put("shopImagePath", shop.getShopImg());
 				modelMap.put("success", true);
 			} catch (Exception ex) {
 				modelMap.put("success", false);
@@ -198,7 +198,7 @@ public class ShopManagementController {
 				}
 			} catch (ShopOperationException | IOException e) {
 				modelMap.put("success", false);
-				modelMap.put("errMsg", "请输入店铺信息");
+				modelMap.put("errMsg", e.getMessage());
 			}
 			return modelMap;
 		} else {

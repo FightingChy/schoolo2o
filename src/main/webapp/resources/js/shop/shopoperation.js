@@ -90,7 +90,7 @@ $(function() {
 		shop.area = {
 			areaId : $('#area').find('option').not(function() {
 				return !this.selected;
-			}).data('value')
+			}).data('id')
 		};
 		// 获取上传的图片文件流
 		var shopImg = $('#shop-img')[0].files[0];

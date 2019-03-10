@@ -16,7 +16,8 @@ $(function() {
 				$('#shop-phone').text(shop.phone);
 				$('#shop-desc').text(shop.shopDesc);
 				$('#area').text(shop.area.areaName);
-				$('#shop-img').attr("src", '/schoolo2o/image/showimg?path=' +encodeURIComponent(data.shopImagePath));
+				//$('#shop-img').attr("src", '/schoolo2o/image/showimg?path=' +encodeURIComponent(data.shopImagePath));
+				$('#shop-img').attr("src", data.shopImagePath);
 			}
 		});
 	}

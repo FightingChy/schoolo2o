@@ -94,9 +94,9 @@ public class DESUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(getEncryptString("root"));
+		System.out.println(getEncryptString("work")); // work: zCKAAEaFQUI=
 		System.out.println(getEncryptString("161009_Fighting"));
-		System.out.println(getDecryptString("WnplV/ietfQ="));
+		System.out.println(getDecryptString("zCKAAEaFQUI="));
 		System.out.println(getDecryptString("kb9IZV687gQDSAY9IhN9aA=="));
 	}
 

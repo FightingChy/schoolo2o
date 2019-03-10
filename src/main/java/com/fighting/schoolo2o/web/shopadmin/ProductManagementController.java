@@ -80,7 +80,6 @@ public class ProductManagementController {
 					.getProductCategoryList(product.getShop().getShopId());
 			modelMap.put("success", true);
 			modelMap.put("product", product);
-			modelMap.put("productImagePath", PathUtil.getImgBasePath() + product.getImgAddr());
 			modelMap.put("productCategoryList", productCategoryList);
 		} else {
 			modelMap.put("success", false);
